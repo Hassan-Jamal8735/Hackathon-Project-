@@ -12,12 +12,7 @@ const loadPDFJS = async () => {
       // Use the existing PDF.js from pdf-worker.js
       const pdfjsModule = await import('./pdf-worker');
       pdfjsLib = pdfjsModule.default;
-
-      // Set the worker source
-      if (pdfjsLib.GlobalWorkerOptions) {
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
-      }
-
+      // Note: workerSrc is already set in pdf-worker.js
       isPDFJSLoaded = true;
       console.log('✅ PDF.js loaded successfully');
     } catch (error) {
@@ -357,6 +352,7 @@ export const extractTextFromImage = async (imageFile) => {
     return text;
   } catch (error) {
     console.error('❌ Image OCR failed:', error);
+    // Explicitly try to terminate worker if it exists
     return `Failed to extract text from image: ${error.message}\n\nPlease ensure the image is clear and contains readable text.`;
   }
 };

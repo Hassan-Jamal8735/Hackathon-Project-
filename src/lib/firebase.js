@@ -16,7 +16,7 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-export const storage = getStorage(app, "gs://web-test-bd1e3.firebasestorage.app");
+export const storage = getStorage(app, firebaseConfig.storageBucket);
 
 
 export default app;

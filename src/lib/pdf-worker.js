@@ -1,8 +1,9 @@
-// This helps with webpack configuration
-import * as pdfjsLib from 'pdfjs-dist/build/pdf';
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
+import * as pdfjsLib from 'pdfjs-dist';
 
-// Set the worker source
+// This tells Vite to resolve the worker file path as a URL
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
+
+// Set the worker source using the resolved URL
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 export default pdfjsLib;

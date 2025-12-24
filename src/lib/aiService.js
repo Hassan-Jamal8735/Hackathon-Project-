@@ -362,6 +362,10 @@ export const analyzeWithHuggingFace = async (text, model = "mrm8488/fake-news-de
     
     if (!response.ok) {
       const errorText = await response.text();
+      // Detect CORS or common failures to avoid console noise
+      if (response.status === 0 || response.status === 403) {
+        return { label: 'ERROR', source: 'cors-blocked' };
+      }
       throw new Error(`Hugging Face API error: ${response.status} - ${errorText}`);
     }
     
@@ -402,6 +406,16 @@ export const analyzeWithHuggingFace = async (text, model = "mrm8488/fake-news-de
     };
     
   } catch (error) {
+    // Silent fallback for CORS/Network errors
+    if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+      console.warn('⚠️ Hugging Face blocked by CORS. Falling back to next service.');
+      return {
+        label: 'ERROR',
+        confidence: 0,
+        explanation: 'Network/CORS error',
+        source: 'cors-error'
+      };
+    }
     console.error("Hugging Face analysis failed:", error);
     return {
       label: 'ERROR',

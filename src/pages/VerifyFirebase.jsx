@@ -95,7 +95,7 @@ const verifySetup = async () => {
                 <span className="text-lg mr-3">💾</span>
                 <div>
                   <h3 className="font-medium">Storage</h3>
-                  <p className="text-sm mt-1">{status.status}</p>
+                  <p className="text-sm mt-1">{status.storage}</p>
                 </div>
               </div>
             </div>

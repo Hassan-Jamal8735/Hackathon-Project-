@@ -175,23 +175,19 @@
     @apply bg-blue-100 text-blue-800;
   }
 
-  /* Loading states */
-  .skeleton {
-    @apply animate-pulse bg-gray-200 rounded;
-  }
+/* Loading states */
+.skeleton {
+  @apply animate-pulse bg-gray-200 rounded;
+}
 
-  .skeleton-text {
-    @apply skeleton h-4 w-full mb-2;
-  }
+.skeleton-text {
+  /* Instead of @apply skeleton, repeat the base utilities */
+  @apply animate-pulse bg-gray-200 rounded h-4 w-full mb-2;
+}
 
-  .skeleton-title {
-    @apply skeleton h-6 w-3/4 mb-4;
-  }
-
-  .skeleton-avatar {
-    @apply skeleton h-10 w-10 rounded-full;
-  }
-
+.skeleton-title {
+  @apply animate-pulse bg-gray-200 rounded h-6 w-3/4 mb-4;
+}
   /* Animations */
   .animate-in {
     animation: animate-in 0.3s ease-out;

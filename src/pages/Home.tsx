@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { clsx } from 'clsx'
+import clsx from 'classnames'
 import {
   ShieldCheckIcon,
   ArrowPathIcon,
