@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { ShieldCheckIcon, DocumentTextIcon, UserGroupIcon, BoltIcon, ClipboardDocumentIcon, PrinterIcon, DocumentArrowDownIcon } from '@heroicons/react/24/outline';
 import Button from '../ui/Button';
 import { generateLegalContent, saveLegalHistory, downloadLegalDocument } from '../../lib/legalService';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';   
 
 const LegalCard = ({ title, description, type }) => {
   const { currentUser } = useAuth();
