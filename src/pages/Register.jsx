@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import Loader from '../components/ui/Loader';
+import Loader from '../components/ui/loader';
 
 const Register = () => {
   const [fullName, setFullName] = useState('');

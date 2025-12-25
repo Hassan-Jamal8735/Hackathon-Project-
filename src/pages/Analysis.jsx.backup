@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useFirestore } from '../hooks/useFirestore';
-import Loader from '../components/ui/Loader';
+import Loader from '../components/ui/loader';
 import Button from '../components/ui/Button';
 import {
   CheckCircleIcon, XCircleIcon, ExclamationTriangleIcon,
