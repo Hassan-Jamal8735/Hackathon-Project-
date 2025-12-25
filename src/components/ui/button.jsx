@@ -2,7 +2,7 @@ import React from 'react';
 
 const Button = ({
   children,
-  onClick,
+  onClick,  
   type = "button",
   variant = "primary",
   className = "",
