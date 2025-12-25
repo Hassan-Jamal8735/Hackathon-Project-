@@ -3,7 +3,7 @@ import { auth, db, storage } from '../lib/firebase';
 import { getDocs, collection } from 'firebase/firestore';
 import { ref } from 'firebase/storage';
 import { useAuth } from '../hooks/useAuth';
-import Button from '../components/ui/Button';
+import Button from '../components/ui/button';
 
 const VerifyFirebase = () => {
   const { currentUser } = useAuth();

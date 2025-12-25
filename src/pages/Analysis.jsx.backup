@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useFirestore } from '../hooks/useFirestore';
 import Loader from '../components/ui/loader';
-import Button from '../components/ui/Button';
+import Button from '../components/ui/button';
 import {
   CheckCircleIcon, XCircleIcon, ExclamationTriangleIcon,
   InformationCircleIcon, EyeIcon, DocumentTextIcon,

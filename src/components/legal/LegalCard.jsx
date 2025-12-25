@@ -1,7 +1,7 @@
 // src/components/legal/LegalCard.js - UPDATED
 import React, { useState } from 'react';
 import { ShieldCheckIcon, DocumentTextIcon, UserGroupIcon, BoltIcon, ClipboardDocumentIcon, PrinterIcon, DocumentArrowDownIcon } from '@heroicons/react/24/outline';
-import Button from '../ui/Button';
+import Button from '../ui/button';
 import { generateLegalContent, saveLegalHistory, downloadLegalDocument } from '../../lib/legalService';
 import { useAuth } from '../../hooks/useAuth';   
 

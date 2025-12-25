@@ -11,8 +11,8 @@ import {
   SparklesIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/outline'
-import { useAuth } from '@/hooks/useAuth'
-import Button from '@/components/ui/Button'
+import { useAuth } from './../hooks/useAuth'
+import Button from './../components/ui/button'
 
 const Home: React.FC = () => {
   const { currentUser } = useAuth()
