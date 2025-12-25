@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
-import Loader from "./components/ui/Loader";
+import Loader from "./components/ui/loader";
 import ProtectedRoute from "./components/global/ProtectedRoute";
 
 // Pages
