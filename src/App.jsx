@@ -10,7 +10,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 import Analysis from "./pages/Analysis";
-import Legal from "./pages/Legal";
+import Legal from "./pages/Legal";   
 import NotFound from "./pages/NotFound";
 import VerifyFirebase from "./pages/VerifyFirebase";
 
