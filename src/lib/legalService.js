@@ -218,7 +218,8 @@ class JurisdictionDetector {
       // In a real implementation, this would use a geolocation service
       // For now, return a placeholder
       return null;
-    } catch {
+    } catch (error) {
+      console.warn('IP location detection failed:', error);
       return null;
     }
   }
@@ -234,7 +235,7 @@ class JurisdictionDetector {
   }
 
   static combineLegalTraditionSignals(signals) {
-    const { inputHints, contextHints, userLocation } = signals;
+    const { inputHints, contextHints } = signals;
 
     // Culturally neutral combination - no regional bias
     const allHints = [...(inputHints || []), ...(contextHints || [])];
@@ -701,7 +702,7 @@ export const generateLegalContent = async (type, userPrompt, context = {}) => {
 
 // Create Culturally Neutral AI Prompts for Global Legal Guidance
 const createUniversalPrompt = (context) => {
-  const { jurisdiction, legalSystem, userPrompt, type } = context;
+  const { jurisdiction, userPrompt, type } = context;
 
   const baseInstructions = `You are TruthShield's Global Legal AI Advisor - providing worldwide legal guidance.
 
@@ -885,38 +886,6 @@ For actual legal advice, consult with qualified legal professionals.
 TruthShield Worldwide Legal AI - Production Ready`;
 };
 
-// Error content
-const getErrorContent = (type, prompt, error) => {
-  return `=== LEGAL GENERATION ERROR ===
-We encountered an error while generating ${type} for: "${prompt}"
-
-Error: ${error}
-
-**IMMEDIATE ALTERNATIVES:**
-
-1. **Consult Legal Professional:**
-   - Find lawyers at: https://www.barcouncilofindia.org/
-   - Legal aid services available in most cities
-
-2. **Free Legal Resources:**
-   - National Legal Services Authority: https://nalsa.gov.in/
-   - Consumer Helpline: 1915
-   - Cyber Crime Portal: https://cybercrime.gov.in/
-
-3. **Online Legal Platforms:**
-   - https://www.vakilsearch.com/
-   - https://www.legalserviceindia.com/
-   - https://www.lawrato.com/
-
-**For Quick Reference:**
-- Keep detailed records of your issue
-- Note dates, times, and people involved
-- Preserve all documentary evidence
-- Never sign documents without understanding
-
-**Remember:** Accurate legal advice requires understanding your specific circumstances.
-Consider consulting with a qualified legal professional.`;
-};
 
 // Save legal generation to history
 export const saveLegalHistory = (userId, type, prompt, content) => {

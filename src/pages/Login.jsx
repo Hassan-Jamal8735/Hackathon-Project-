@@ -27,7 +27,7 @@ const Login = () => {
       } else {
         setError(result.error || 'Failed to login. Please check your credentials.');
       }
-    } catch (err) {
+    } catch (error) {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -35,17 +35,17 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
             Sign in to TruthShield
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-slate-400">
             Or{' '}
             <Link
               to="/register"
-              className="font-medium text-blue-600 hover:text-blue-500"
+              className="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200"
             >
               create a new account
             </Link>
@@ -54,7 +54,7 @@ const Login = () => {
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className="bg-red-900/30 backdrop-blur-sm border border-red-700/50 text-red-300 px-4 py-3 rounded-lg">
               {error}
             </div>
           )}
@@ -89,7 +89,7 @@ const Login = () => {
             <div className="text-sm">
               <Link
                 to="/forgot-password"
-                className="font-medium text-blue-600 hover:text-blue-500"
+                className="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200"
               >
                 Forgot your password?
               </Link>

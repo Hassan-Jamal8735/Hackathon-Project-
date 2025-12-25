@@ -49,13 +49,10 @@ const FileUploadBox = ({ onFileSelect, maxFiles = 5, maxSizeMB = 10 }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.png', '.jpg', '.jpeg', '.gif', '.webp'],
       'application/pdf': ['.pdf'],
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
       'application/msword': ['.doc'],
-      'text/*': ['.txt', '.csv'],
-      'video/*': ['.mp4', '.mov', '.avi'],
-      'audio/*': ['.mp3', '.wav', '.m4a']
+      'text/*': ['.txt', '.csv']
     },
     multiple: true,
     maxFiles: maxFiles,
@@ -92,12 +89,12 @@ const FileUploadBox = ({ onFileSelect, maxFiles = 5, maxSizeMB = 10 }) => {
         tabIndex={0}
         aria-label={analyzingFiles ? "Analyzing files, please wait" : "Upload files for analysis"}
         aria-describedby="upload-instructions"
-        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50 ${
+        className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[var(--color-trust-400)] focus:ring-opacity-50 ${
           isDragActive
-            ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 shadow-lg scale-[1.02]'
+            ? 'border-[var(--color-trust-500)] bg-gradient-to-br from-slate-700/50 to-slate-800/50 shadow-lg scale-[1.02]'
             : analyzingFiles
-            ? 'border-yellow-400 bg-gradient-to-br from-yellow-50 to-yellow-100'
-            : 'border-gray-300 hover:border-blue-400 hover:bg-gradient-to-br hover:from-gray-50 hover:to-blue-50 hover:shadow-md'
+            ? 'border-[var(--color-processing-400)] bg-gradient-to-br from-slate-700/30 to-slate-800/30'
+            : 'border-slate-600 hover:border-[var(--color-trust-400)] hover:bg-gradient-to-br hover:from-slate-700/20 hover:to-slate-800/20 hover:shadow-md'
         }`}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -147,24 +144,23 @@ const FileUploadBox = ({ onFileSelect, maxFiles = 5, maxSizeMB = 10 }) => {
                   </p>
 
                   {/* Supported Formats Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
                     {[
-                      { icon: '📄', label: 'Documents', types: 'PDF, DOC' },
-                      { icon: '🖼️', label: 'Images', types: 'PNG, JPG' },
-                      { icon: '📝', label: 'Text', types: 'TXT, CSV' },
-                      { icon: '🎥', label: 'Media', types: 'MP4, MP3' }
+                      { icon: '📄', label: 'PDF Files', types: 'PDF' },
+                      { icon: '📝', label: 'Word Docs', types: 'DOC, DOCX' },
+                      { icon: '📃', label: 'Text Files', types: 'TXT, CSV' }
                     ].map((format, index) => (
-                      <div key={index} className="bg-white rounded-lg p-3 border border-gray-200 hover:border-blue-300 transition-colors">
+                      <div key={index} className="bg-slate-800/50 rounded-lg p-3 border border-slate-600 hover:border-[var(--color-trust-400)] transition-colors">
                         <div className="text-2xl mb-1">{format.icon}</div>
-                        <div className="text-sm font-medium text-gray-800">{format.label}</div>
-                        <div className="text-xs text-gray-500">{format.types}</div>
+                        <div className="text-sm font-medium text-white">{format.label}</div>
+                        <div className="text-xs text-slate-400">{format.types}</div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="text-sm text-gray-500 space-y-1" id="upload-instructions">
+                  <div className="text-sm text-slate-400 space-y-1" id="upload-instructions">
                     <p>✨ Intelligent analysis • Quality assessment • Smart recommendations</p>
-                    <p>📏 Max {maxFiles} files • {maxSizeMB}MB each • Instant feedback</p>
+                    <p>📏 Max {maxFiles} files • {maxSizeMB}MB each • Document files only</p>
                   </div>
 
                   {/* Screen reader instructions */}
@@ -180,21 +176,21 @@ const FileUploadBox = ({ onFileSelect, maxFiles = 5, maxSizeMB = 10 }) => {
 
       {/* Analysis Results Summary */}
       {summary && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+        <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 border border-slate-600 rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-blue-800 flex items-center">
+            <h3 className="text-lg font-semibold text-[var(--color-trust-200)] flex items-center">
               <CheckCircleIcon className="h-5 w-5 mr-2" />
               File Analysis Complete
             </h3>
-            <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+            <span className="bg-[var(--color-trust-900)] text-[var(--color-trust-200)] text-sm font-medium px-3 py-1 rounded-full border border-[var(--color-trust-700)]">
               {summary.total} file{summary.total !== 1 ? 's' : ''} analyzed
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="flex items-center space-x-3 bg-white p-3 rounded-lg">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                <span className="text-green-600 font-bold">✓</span>
+            <div className="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-600">
+              <div className="w-10 h-10 bg-[var(--color-verified-900)] rounded-lg flex items-center justify-center border border-[var(--color-verified-700)]">
+                <span className="text-[var(--color-verified-400)] font-bold">✓</span>
               </div>
               <div>
                 <div className="text-sm font-medium text-gray-800">Ready to Process</div>
@@ -203,9 +199,9 @@ const FileUploadBox = ({ onFileSelect, maxFiles = 5, maxSizeMB = 10 }) => {
             </div>
 
             {summary.warnings > 0 && (
-              <div className="flex items-center space-x-3 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-                <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-                  <ExclamationTriangleIcon className="h-5 w-5 text-yellow-600" />
+              <div className="flex items-center space-x-3 bg-[var(--color-processing-900)] p-3 rounded-lg border border-[var(--color-processing-700)]">
+                <div className="w-10 h-10 bg-[var(--color-processing-800)] rounded-lg flex items-center justify-center border border-[var(--color-processing-600)]">
+                  <ExclamationTriangleIcon className="h-5 w-5 text-[var(--color-processing-400)]" />
                 </div>
                 <div>
                   <div className="text-sm font-medium text-yellow-800">Quality Warnings</div>
@@ -215,9 +211,9 @@ const FileUploadBox = ({ onFileSelect, maxFiles = 5, maxSizeMB = 10 }) => {
             )}
 
             {summary.recommendations > 0 && (
-              <div className="flex items-center space-x-3 bg-purple-50 p-3 rounded-lg border border-purple-200">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <InformationCircleIcon className="h-5 w-5 text-purple-600" />
+              <div className="flex items-center space-x-3 bg-slate-800/30 p-3 rounded-lg border border-slate-600">
+                <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center border border-slate-600">
+                  <InformationCircleIcon className="h-5 w-5 text-slate-400" />
                 </div>
                 <div>
                   <div className="text-sm font-medium text-purple-800">Smart Tips</div>

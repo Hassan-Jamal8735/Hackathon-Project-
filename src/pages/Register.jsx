@@ -59,7 +59,7 @@ const Register = () => {
             setError(result.error || 'Failed to create account. Please try again.');
         }
       }
-    } catch (err) {
+    } catch (error) {
       setError('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -67,17 +67,17 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
             Create your TruthShield account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-slate-400">
             Or{' '}
             <Link
               to="/login"
-              className="font-medium text-blue-600 hover:text-blue-500"
+              className="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200"
             >
               sign in to your existing account
             </Link>
@@ -86,13 +86,13 @@ const Register = () => {
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <div className="bg-red-900/30 backdrop-blur-sm border border-red-700/50 text-red-300 px-4 py-3 rounded-lg">
               {error}
             </div>
           )}
-          
+
           {success && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+            <div className="bg-emerald-900/30 backdrop-blur-sm border border-emerald-700/50 text-emerald-300 px-4 py-3 rounded-lg">
               {success}
             </div>
           )}

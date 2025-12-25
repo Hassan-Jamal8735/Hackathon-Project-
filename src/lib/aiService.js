@@ -741,12 +741,6 @@ Provide detailed, practical guidance:`
 
 // Simple legal content fallback
 const getSimpleLegalContent = (type, prompt) => {
-  const typeTitles = {
-    clause: 'LEGAL CLAUSE',
-    complaint: 'COMPLAINT PROCEDURE',
-    guidance: 'LEGAL GUIDANCE'
-  };
-  
   const baseContent = {
     clause: `BASED ON: "${prompt}"
 
@@ -996,7 +990,7 @@ export const analyzeWithAIStreaming = async (text, onProgress = null, context = 
   try {
     onProgress?.({ stage: 'preprocessing', progress: 10, message: 'Preprocessing content...' });
 
-    const processedText = cleanTextForAnalysis(text);
+    const processedText = text.trim();
     onProgress?.({ stage: 'preprocessing', progress: 20, message: 'Content processed' });
 
     onProgress?.({ stage: 'ai_analysis', progress: 30, message: 'Analyzing with AI...' });
@@ -1061,9 +1055,9 @@ export const getPerformanceStats = () => {
   return {
     cacheStats: intelligentCache.getStats(),
     resilienceStats: {
-      totalRequests: resilienceManager.requestHistory.length,
-      circuitBreakerState: ProductionResilienceManager.circuitBreaker.isOpen() ? 'open' : 'closed',
-      recentFailures: ProductionResilienceManager.circuitBreaker.failures
+      totalRequests: 0,
+      circuitBreakerState: 'closed',
+      recentFailures: 0
     }
   };
 };

@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import 'tailwindcss';
 
 /* Base styles */
 @tailwind base;
@@ -8,17 +8,65 @@
 
 /* Custom CSS Variables for Design System */
 :root {
-  /* Primary Colors */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: #1d4ed8;
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* Trust & Security Colors (Primary - Blue Theme) */
+  --color-trust-50: #eff6ff;
+  --color-trust-100: #dbeafe;
+  --color-trust-200: #bfdbfe;
+  --color-trust-300: #93c5fd;
+  --color-trust-400: #60a5fa;
+  --color-trust-500: #3b82f6;
+  --color-trust-600: #2563eb;
+  --color-trust-700: #1d4ed8;
+  --color-trust-800: #1e40af;
+  --color-trust-900: #1e3a8a;
+
+  /* Verification & Authenticity Colors (Success - Green Theme) */
+  --color-verified-50: #f0fdf4;
+  --color-verified-100: #dcfce7;
+  --color-verified-200: #bbf7d0;
+  --color-verified-300: #86efac;
+  --color-verified-400: #4ade80;
+  --color-verified-500: #22c55e;
+  --color-verified-600: #16a34a;
+  --color-verified-700: #15803d;
+  --color-verified-800: #166534;
+  --color-verified-900: #14532d;
+
+  /* Suspicious & Warning Colors (Warning - Orange/Red Theme) */
+  --color-suspicious-50: #fff7ed;
+  --color-suspicious-100: #ffedd5;
+  --color-suspicious-200: #fed7aa;
+  --color-suspicious-300: #fdba74;
+  --color-suspicious-400: #fb923c;
+  --color-suspicious-500: #f97316;
+  --color-suspicious-600: #ea580c;
+  --color-suspicious-700: #c2410c;
+  --color-suspicious-800: #9a3412;
+  --color-suspicious-900: #7c2d12;
+
+  /* Processing & Neutral Colors (Info - Yellow/Gray Theme) */
+  --color-processing-50: #fefce8;
+  --color-processing-100: #fef9c3;
+  --color-processing-200: #fef08a;
+  --color-processing-300: #fde047;
+  --color-processing-400: #facc15;
+  --color-processing-500: #eab308;
+  --color-processing-600: #ca8a04;
+  --color-processing-700: #a16207;
+  --color-processing-800: #854d0e;
+  --color-processing-900: #713f12;
+
+  /* Legacy Primary Colors (for backward compatibility) */
+  --color-primary-50: var(--color-trust-50);
+  --color-primary-100: var(--color-trust-100);
+  --color-primary-200: var(--color-trust-200);
+  --color-primary-300: var(--color-trust-300);
+  --color-primary-400: var(--color-trust-400);
+  --color-primary-500: var(--color-trust-500);
+  --color-primary-600: var(--color-trust-600);
+  --color-primary-700: var(--color-trust-700);
+  --color-primary-800: var(--color-trust-800);
+  --color-primary-900: var(--color-trust-900);
 
   /* Typography */
   --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -52,16 +100,65 @@
 /* Dark mode variables */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary-50: #1e293b;
-    --color-primary-100: #334155;
-    --color-primary-200: #475569;
-    --color-primary-300: #64748b;
-    --color-primary-400: #94a3b8;
-    --color-primary-500: #cbd5e1;
-    --color-primary-600: #e2e8f0;
-    --color-primary-700: #f1f5f9;
-    --color-primary-800: #f8fafc;
-    --color-primary-900: #ffffff;
+    /* Trust & Security Colors (Dark Mode) */
+    --color-trust-50: #0f172a;
+    --color-trust-100: #1e293b;
+    --color-trust-200: #334155;
+    --color-trust-300: #475569;
+    --color-trust-400: #64748b;
+    --color-trust-500: #94a3b8;
+    --color-trust-600: #cbd5e1;
+    --color-trust-700: #e2e8f0;
+    --color-trust-800: #f1f5f9;
+    --color-trust-900: #f8fafc;
+
+    /* Verification & Authenticity Colors (Dark Mode) */
+    --color-verified-50: #14532d;
+    --color-verified-100: #166534;
+    --color-verified-200: #15803d;
+    --color-verified-300: #16a34a;
+    --color-verified-400: #22c55e;
+    --color-verified-500: #4ade80;
+    --color-verified-600: #86efac;
+    --color-verified-700: #bbf7d0;
+    --color-verified-800: #dcfce7;
+    --color-verified-900: #f0fdf4;
+
+    /* Suspicious & Warning Colors (Dark Mode - slightly adjusted for contrast) */
+    --color-suspicious-50: #7c2d12;
+    --color-suspicious-100: #9a3412;
+    --color-suspicious-200: #c2410c;
+    --color-suspicious-300: #ea580c;
+    --color-suspicious-400: #f97316;
+    --color-suspicious-500: #fb923c;
+    --color-suspicious-600: #fdba74;
+    --color-suspicious-700: #fed7aa;
+    --color-suspicious-800: #ffedd5;
+    --color-suspicious-900: #fff7ed;
+
+    /* Processing & Neutral Colors (Dark Mode) */
+    --color-processing-50: #713f12;
+    --color-processing-100: #854d0e;
+    --color-processing-200: #a16207;
+    --color-processing-300: #ca8a04;
+    --color-processing-400: #eab308;
+    --color-processing-500: #facc15;
+    --color-processing-600: #fde047;
+    --color-processing-700: #fef08a;
+    --color-processing-800: #fef9c3;
+    --color-processing-900: #fefce8;
+
+    /* Legacy Primary Colors (for backward compatibility) */
+    --color-primary-50: var(--color-trust-50);
+    --color-primary-100: var(--color-trust-100);
+    --color-primary-200: var(--color-trust-200);
+    --color-primary-300: var(--color-trust-300);
+    --color-primary-400: var(--color-trust-400);
+    --color-primary-500: var(--color-trust-500);
+    --color-primary-600: var(--color-trust-600);
+    --color-primary-700: var(--color-trust-700);
+    --color-primary-800: var(--color-trust-800);
+    --color-primary-900: var(--color-trust-900);
   }
 }
 
@@ -175,6 +272,23 @@
     @apply bg-blue-100 text-blue-800;
   }
 
+  /* Verification Status Badges */
+  .badge-verified {
+    @apply bg-emerald-100 text-emerald-800 border border-emerald-200;
+  }
+
+  .badge-suspicious {
+    @apply bg-orange-100 text-orange-800 border border-orange-200;
+  }
+
+  .badge-processing {
+    @apply bg-yellow-100 text-yellow-800 border border-yellow-200;
+  }
+
+  .badge-manipulated {
+    @apply bg-red-100 text-red-800 border border-red-200;
+  }
+
 /* Loading states */
 .skeleton {
   @apply animate-pulse bg-gray-200 rounded;
@@ -194,7 +308,7 @@
   }
 
   .fade-in {
-    animation: fade-in 0.3s ease-out;
+    animation: fade-in 0.6s ease-out;
   }
 
   .slide-in {
@@ -205,13 +319,35 @@
     animation: zoom-in-95 0.3s ease-out;
   }
 
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+  }
+
   /* Gradient backgrounds */
+  .gradient-trust {
+    background: linear-gradient(135deg, var(--color-trust-500), var(--color-trust-700));
+  }
+
+  .gradient-verified {
+    background: linear-gradient(135deg, var(--color-verified-500), var(--color-verified-700));
+  }
+
+  .gradient-suspicious {
+    background: linear-gradient(135deg, var(--color-suspicious-500), var(--color-suspicious-700));
+  }
+
+  .gradient-processing {
+    background: linear-gradient(135deg, var(--color-processing-500), var(--color-processing-700));
+  }
+
+  /* Legacy gradients (for backward compatibility) */
   .gradient-primary {
-    background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+    background: linear-gradient(135deg, var(--color-trust-500), var(--color-trust-700));
   }
 
   .gradient-secondary {
-    background: linear-gradient(135deg, var(--color-primary-100), var(--color-primary-200));
+    background: linear-gradient(135deg, var(--color-trust-100), var(--color-trust-200));
   }
 }
 

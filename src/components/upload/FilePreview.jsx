@@ -35,17 +35,17 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
   };
 
   const getQualityColor = (score) => {
-    if (score >= 90) return 'text-green-600 bg-green-100';
-    if (score >= 70) return 'text-yellow-600 bg-yellow-100';
-    return 'text-red-600 bg-red-100';
+  if (score >= 90) return 'text-[var(--color-verified-300)] bg-[var(--color-verified-900)] border border-[var(--color-verified-700)]';
+  if (score >= 70) return 'text-[var(--color-processing-300)] bg-[var(--color-processing-900)] border border-[var(--color-processing-700)]';
+  return 'text-[var(--color-suspicious-300)] bg-[var(--color-suspicious-900)] border border-[var(--color-suspicious-700)]';
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'high': return 'text-red-600 bg-red-100 border-red-200';
-      case 'medium': return 'text-yellow-600 bg-yellow-100 border-yellow-200';
-      case 'low': return 'text-blue-600 bg-blue-100 border-blue-200';
-      default: return 'text-gray-600 bg-gray-100 border-gray-200';
+    case 'high': return 'text-[var(--color-suspicious-300)] bg-[var(--color-suspicious-900)] border-[var(--color-suspicious-700)]';
+    case 'medium': return 'text-[var(--color-processing-300)] bg-[var(--color-processing-900)] border-[var(--color-processing-700)]';
+    case 'low': return 'text-[var(--color-verified-300)] bg-[var(--color-verified-900)] border-[var(--color-verified-700)]';
+    default: return 'text-slate-300 bg-slate-700/30 border-slate-600';
     }
   };
 
@@ -58,7 +58,7 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
         return (
         <div
           key={index}
-          className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 focus-within:ring-2 focus-within:ring-blue-300 focus-within:ring-opacity-50"
+          className="bg-slate-800/50 border border-slate-600 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 focus-within:ring-2 focus-within:ring-[var(--color-trust-400)] focus-within:ring-opacity-50"
           role="group"
           aria-label={`File ${index + 1} of ${files.length}: ${file.name}`}
         >
@@ -69,7 +69,7 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
                   {/* File Icon & Type */}
                   <div className="flex-shrink-0">
                     <div className={`h-12 w-12 rounded-xl flex items-center justify-center shadow-sm ${
-                      analysis ? `bg-${analysis.type.color}-100` : 'bg-gray-100'
+                      analysis ? `bg-[var(--color-trust-900)] border border-[var(--color-trust-700)]` : 'bg-slate-700/30 border border-slate-600'
                     }`}>
                       <span className="text-2xl">{analysis ? analysis.type.icon : '📄'}</span>
                     </div>
@@ -105,7 +105,7 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
                         {analysis && (
                           <button
                             onClick={() => toggleExpanded(index)}
-                            className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-slate-300 hover:bg-slate-700 rounded-lg transition-colors"
                             title={isExpanded ? "Hide details" : "Show details"}
                           >
                             {isExpanded ? <ChevronUpIcon className="h-4 w-4" /> : <ChevronDownIcon className="h-4 w-4" />}
@@ -115,7 +115,7 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
                         {!isUploading && onRemove && (
                           <button
                             onClick={() => onRemove(index)}
-                            className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                            className="p-1.5 text-slate-400 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-colors"
                             title="Remove file"
                           >
                             <XMarkIcon className="h-4 w-4" />
@@ -134,13 +134,13 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
                           </div>
 
                           {/* Processing Strategy */}
-                          <div className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                          <div className="px-3 py-1 bg-[var(--color-trust-900)] text-[var(--color-trust-200)] rounded-full text-sm font-medium border border-[var(--color-trust-700)]">
                             {analysis.processingStrategy.replace('_', ' ').toUpperCase()}
                           </div>
                         </div>
 
                         {/* File Number */}
-                        <span className="text-xs font-medium px-2 py-1 rounded-full bg-gray-100 text-gray-700">
+                        <span className="text-xs font-medium px-2 py-1 rounded-full bg-slate-700 text-slate-300 border border-slate-600">
                           {index + 1} of {files.length}
                         </span>
                       </div>
@@ -161,8 +161,8 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
                         <EyeIcon className="h-4 w-4 mr-2" />
                         Content Preview
                       </h5>
-                      <div className="bg-white p-3 rounded-lg border border-gray-200">
-                        <p className="text-sm text-gray-700 whitespace-pre-wrap line-clamp-3">
+                      <div className="bg-slate-800/30 p-3 rounded-lg border border-slate-600">
+                        <p className="text-sm text-slate-300 whitespace-pre-wrap line-clamp-3">
                           {analysis.content.text || 'Content preview not available'}
                         </p>
                         {analysis.content.previewLength > 200 && (
@@ -227,10 +227,10 @@ const FilePreview = ({ files, analyses, onRemove, isUploading }) => {
       })}
 
       {/* Enhanced Summary */}
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 rounded-xl p-4">
+      <div className="bg-gradient-to-r from-slate-800/30 to-slate-700/30 border border-slate-600 rounded-xl p-4">
         <div className="flex justify-between items-center mb-3">
-          <h4 className="font-semibold text-gray-800">Upload Summary</h4>
-          <span className="bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">
+          <h4 className="font-semibold text-slate-200">Upload Summary</h4>
+          <span className="bg-slate-700 text-slate-200 text-sm font-medium px-3 py-1 rounded-full border border-slate-600">
             {files.length} file{files.length !== 1 ? 's' : ''} selected
           </span>
         </div>

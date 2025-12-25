@@ -1,5 +1,5 @@
 import { db } from '../lib/firebase';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 
 // Initialize Firestore with some sample data
 export const initFirestoreCollections = async () => {

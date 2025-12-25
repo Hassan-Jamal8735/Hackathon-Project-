@@ -245,19 +245,6 @@ const extractTextFromScannedPDF = async (pdfFile, progressCallback = null) => {
   }
 };
 
-// SIMPLE TEXT CLEANUP - No more binary parsing!
-const cleanExtractedText = (text) => {
-  if (!text || text.trim().length === 0) {
-    return '';
-  }
-
-  return text
-    .replace(/\s+/g, ' ')          // Normalize whitespace
-    .replace(/\n\s*\n/g, '\n\n')   // Normalize line breaks
-    .replace(/[^\x20-\x7E\n\r\t]/g, ' ') // Remove non-ASCII characters
-    .replace(/\s+/g, ' ')          // Final whitespace cleanup
-    .trim();
-};
 
 // Format extraction result
 const formatExtractionResult = (text, fileName, extractedPages, totalPages, method = 'PDF.js') => {
@@ -608,7 +595,7 @@ export class FileIntelligence {
           preview.contentType = 'text';
           preview.previewLength = text.length;
           preview.estimatedProcessingTime = '< 1 second';
-        } catch (textError) {
+        } catch (error) {
           preview.text = 'Text file preview failed';
           preview.contentType = 'text';
           preview.estimatedProcessingTime = '< 1 second';

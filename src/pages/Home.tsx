@@ -46,25 +46,25 @@ const Home: React.FC = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5" />
         <div className="relative container-fluid py-20 lg:py-32">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-blue-800 text-sm font-medium mb-6">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-900/50 backdrop-blur-sm border border-blue-700/50 text-blue-300 text-sm font-medium mb-6">
               <SparklesIcon className="h-4 w-4 mr-2" />
               AI-Powered Content Analysis Platform
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
               TruthShield
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
                 Enterprise
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
               Detect misinformation, verify content authenticity, and generate legal guidance
               with enterprise-grade AI technology. Trusted by professionals worldwide.
             </p>
@@ -95,17 +95,17 @@ const Home: React.FC = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-500">
+            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-slate-400">
               <div className="flex items-center">
-                <LockClosedIcon className="h-4 w-4 mr-2 text-green-500" />
+                <LockClosedIcon className="h-4 w-4 mr-2 text-emerald-400" />
                 Enterprise Security
               </div>
               <div className="flex items-center">
-                <CheckCircleIcon className="h-4 w-4 mr-2 text-green-500" />
+                <CheckCircleIcon className="h-4 w-4 mr-2 text-emerald-400" />
                 SOC 2 Compliant
               </div>
               <div className="flex items-center">
-                <StarIcon className="h-4 w-4 mr-2 text-yellow-500" />
+                <StarIcon className="h-4 w-4 mr-2 text-yellow-400" />
                 4.9/5 Rating
               </div>
             </div>
@@ -114,16 +114,16 @@ const Home: React.FC = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="py-16 bg-white">
+      <div className="py-16 bg-slate-800/50 backdrop-blur-sm">
         <div className="container-fluid">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white mb-4">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white mb-4 shadow-lg">
                   <stat.icon className="h-6 w-6" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+                <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                <div className="text-sm text-slate-400">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -131,13 +131,13 @@ const Home: React.FC = () => {
       </div>
 
       {/* Features Section */}
-      <div className="py-20 bg-gray-50">
+      <div className="py-20 bg-slate-900/50 backdrop-blur-sm">
         <div className="container-fluid">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Enterprise-Grade Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
               Comprehensive content analysis and legal guidance powered by cutting-edge AI technology
             </p>
           </div>
@@ -146,21 +146,21 @@ const Home: React.FC = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="card group hover:scale-105 transition-transform duration-300"
+                className="bg-slate-800/50 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl border border-slate-700/50 group hover:scale-105 hover:border-slate-600/50 transition-all duration-300"
               >
-                <div className="card-body">
+                <div className="p-6">
                   <div className={clsx(
-                    'inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r text-white mb-6',
+                    'inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r text-white mb-6 shadow-lg',
                     feature.gradient
                   )}>
                     <feature.icon className="h-6 w-6" />
                   </div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                  <h3 className="text-xl font-semibold text-white mb-4">
                     {feature.title}
                   </h3>
 
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-slate-400 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -171,7 +171,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+      <div className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 shadow-2xl">
         <div className="container-fluid text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Verify Content with Confidence?
@@ -183,7 +183,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {currentUser ? (
               <Link to="/upload">
-                <Button size="lg" variant="secondary" className="px-8 py-4 text-lg">
+                <Button size="lg" className="px-8 py-4 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm">
                   Start Analyzing
                   <ArrowPathIcon className="ml-2 h-5 w-5" />
                 </Button>
@@ -191,13 +191,13 @@ const Home: React.FC = () => {
             ) : (
               <>
                 <Link to="/register">
-                  <Button size="lg" variant="secondary" className="px-8 py-4 text-lg">
+                  <Button size="lg" className="px-8 py-4 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm">
                     Get Started Free
                     <SparklesIcon className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link to="/login">
-                  <Button size="lg" className="px-8 py-4 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20">
+                  <Button size="lg" className="px-8 py-4 text-lg bg-slate-900/80 border-slate-700 text-slate-200 hover:bg-slate-800 backdrop-blur-sm">
                     Sign In
                   </Button>
                 </Link>

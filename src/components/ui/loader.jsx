@@ -1,9 +1,15 @@
 import React from 'react';
 
-const Loader = () => {
+const Loader = ({ size = "default" }) => {
+  const sizeClasses = {
+    small: "h-6 w-6",
+    default: "h-12 w-12",
+    large: "h-16 w-16"
+  };
+
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-transparent">
-      <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
+    <div className="flex h-screen w-full items-center justify-center bg-slate-900">
+      <div className={`${sizeClasses[size]} animate-spin rounded-full border-4 border-slate-600 border-t-[var(--color-trust-500)]`}></div>
     </div>
   );
 };

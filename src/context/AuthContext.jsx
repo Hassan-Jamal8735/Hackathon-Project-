@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { 
+import {
   auth,
-  db 
+  db
 } from '../lib/firebase';
 import {
   createUserWithEmailAndPassword,
@@ -11,7 +11,7 @@ import {
   updateProfile,
   sendPasswordResetEmail
 } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { useFirestore } from '../hooks/useFirestore';
 
 // Create the context
