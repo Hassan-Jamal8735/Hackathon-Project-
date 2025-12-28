@@ -137,13 +137,13 @@ const Navbar: React.FC = () => {
           {/* Logo and mobile menu button */}
           <div className="flex items-center">
             <div className="flex items-center">
-              <Link
-                to="/"
-                className="text-xl font-bold text-blue-600 flex items-center hover:text-blue-700 transition-colors duration-200"
-              >
-                <ShieldCheckIcon className="h-6 w-6 mr-2 text-blue-600" />
-                TruthShield
-              </Link>
+            <Link
+              to="/"
+              className="flex items-center space-x-2 text-xl font-bold text-blue-700 hover:text-blue-800 transition-colors duration-200"
+            >
+              <img src="/icons/logo.png" alt="TruthShield logo" className="h-8 w-auto" />
+              <span>TruthShield</span>
+            </Link>
             </div>
 
             {/* Desktop Navigation Links */}

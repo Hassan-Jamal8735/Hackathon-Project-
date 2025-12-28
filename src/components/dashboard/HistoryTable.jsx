@@ -27,7 +27,7 @@ const HistoryTable = () => {
       type: 'PDF Document',
       typeIcon: DocumentIcon,
       status: 'Completed',
-      date: '2024-01-15',
+      date: '2026-01-15',
       result: 'Authentic',
       confidence: 98.5,
       processingTime: '2.3s'
@@ -37,7 +37,7 @@ const HistoryTable = () => {
       type: 'Image Scan',
       typeIcon: PhotoIcon,
       status: 'Processing',
-      date: '2024-01-14',
+      date: '2026-01-14',
       result: 'Analyzing',
       confidence: null,
       processingTime: null
@@ -47,7 +47,7 @@ const HistoryTable = () => {
       type: 'Video Content',
       typeIcon: VideoCameraIcon,
       status: 'Completed',
-      date: '2024-01-13',
+      date: '2026-01-13',
       result: 'Manipulated',
       confidence: 23.1,
       processingTime: '8.7s'
@@ -57,7 +57,7 @@ const HistoryTable = () => {
       type: 'Text Analysis',
       typeIcon: ChatBubbleLeftIcon,
       status: 'Completed',
-      date: '2024-01-12',
+      date: '2026-01-12',
       result: 'Suspicious',
       confidence: 67.8,
       processingTime: '1.2s'
@@ -133,68 +133,138 @@ const HistoryTable = () => {
   };
 
   return (
-    <div className="card bg-slate-800/50 backdrop-blur-sm overflow-hidden">
+    <div className="card bg-[var(--ts-card)] border border-[var(--ts-border)] shadow-lg shadow-slate-900/5">
       {/* Table Header */}
-      <div className="card-header bg-gradient-to-r from-slate-800/50 to-slate-700/50">
-        <h3 className="text-lg font-semibold text-white">Recent Verifications</h3>
-        <p className="text-sm text-slate-400 mt-1">Your latest document analysis results</p>
+      <div className="card-header bg-gradient-to-r from-slate-50 to-white text-[var(--ts-text-primary)]">
+        <h3 className="text-lg font-semibold">Recent Verifications</h3>
+        <p className="text-sm text-[var(--ts-text-muted)] mt-1">Your latest document analysis results</p>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-slate-700/50">
-          <thead className="bg-slate-800/50">
+      {/* Mobile-friendly list */}
+      <div className="md:hidden divide-y divide-[var(--ts-border)]">
+        {submissions.map((submission) => (
+          <div key={submission.id} className="p-4 flex space-x-4">
+            <div className="h-12 w-12 rounded-xl border border-blue-200 bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm">
+              <submission.typeIcon className="w-6 h-6" />
+            </div>
+            <div className="flex-1 min-w-0 space-y-1">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-[var(--ts-text-primary)]">
+                    #{submission.id.toString().padStart(4, '0')}
+                  </p>
+                  <p className="text-sm text-[var(--ts-text-muted)]">{submission.type}</p>
+                </div>
+                <span className={`badge ${getStatusBadge(submission.status)}`}>
+                  {submission.status}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className={`badge ${getResultBadge(submission.result)}`}>{submission.result}</span>
+                <span className="text-xs text-[var(--ts-text-muted)]">
+                  {new Date(submission.date).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="flex-1 bg-slate-100 rounded-full h-2">
+                  {submission.confidence ? (
+                    <div
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        submission.confidence >= 90 ? 'bg-[var(--color-verified-500)]' :
+                        submission.confidence >= 70 ? 'bg-[var(--color-processing-500)]' : 'bg-[var(--color-suspicious-500)]'
+                      }`}
+                      style={{ width: `${submission.confidence}%` }}
+                    />
+                  ) : (
+                    <div className="h-2 rounded-full bg-slate-200" />
+                  )}
+                </div>
+                <span className={`text-xs font-semibold ${getConfidenceColor(submission.confidence)}`}>
+                  {submission.confidence ? `${submission.confidence}%` : '-'}
+                </span>
+              </div>
+              <div className="flex space-x-2 pt-2">
+                <button
+                  onClick={() => handleViewSubmission(submission.id)}
+                  className="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-all duration-150"
+                >
+                  <EyeIcon className="w-4 h-4 mr-1" />
+                  View
+                </button>
+                <button
+                  onClick={() => handleDeleteClick(submission.id)}
+                  disabled={deletingId === submission.id}
+                  className="flex-1 inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 transition-all duration-150 disabled:opacity-60"
+                >
+                  <TrashIcon className="w-4 h-4 mr-1" />
+                  {deletingId === submission.id ? 'Deleting...' : 'Delete'}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block overflow-x-auto">
+        <table className="min-w-full divide-y divide-[var(--ts-border)]">
+          <thead className="bg-slate-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-[var(--ts-text-muted)] uppercase tracking-wider">
                 Document
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-[var(--ts-text-muted)] uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-[var(--ts-text-muted)] uppercase tracking-wider">
                 Result
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-[var(--ts-text-muted)] uppercase tracking-wider">
                 Confidence
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-[var(--ts-text-muted)] uppercase tracking-wider">
                 Date
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-semibold text-[var(--ts-text-muted)] uppercase tracking-wider">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody className="bg-slate-800/30 divide-y divide-slate-700/30">
+          <tbody className="bg-white divide-y divide-[var(--ts-border)]">
             {submissions.map((submission) => (
-              <tr key={submission.id} className="hover:bg-slate-700/30 transition-all duration-200 hover:scale-[1.01] hover:shadow-md">
+              <tr key={submission.id} className="hover:bg-slate-50 transition-colors duration-150">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-900/50 to-blue-800/50 rounded-lg flex items-center justify-center border border-blue-700/30">
-                      <submission.typeIcon className="w-5 h-5 text-blue-400" />
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shadow-sm">
+                      <submission.typeIcon className="w-5 h-5" />
                     </div>
                     <div className="ml-4">
-                      <div className="text-sm font-medium text-white">
+                      <div className="text-sm font-semibold text-[var(--ts-text-primary)]">
                         #{submission.id.toString().padStart(4, '0')}
                       </div>
-                      <div className="text-sm text-slate-400">
+                      <div className="text-sm text-[var(--ts-text-muted)]">
                         {submission.type}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="flex items-center">
+                  <div className="flex items-center space-x-2">
                     {submission.status === 'Processing' ? (
-                      <ClockIcon className="w-4 h-4 text-yellow-400 mr-2 animate-pulse" />
+                      <ClockIcon className="w-4 h-4 text-yellow-500 animate-pulse" />
                     ) : (
-                      <CheckCircleIcon className="w-4 h-4 text-emerald-400 mr-2" />
+                      <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
                     )}
                     <span className={`badge ${getStatusBadge(submission.status)}`}>
                       {submission.status}
                     </span>
                   </div>
                   {submission.processingTime && (
-                    <div className="text-xs text-slate-500 mt-1">
+                    <div className="text-xs text-[var(--ts-text-muted)] mt-1">
                       {submission.processingTime}
                     </div>
                   )}
@@ -207,24 +277,24 @@ const HistoryTable = () => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   {submission.confidence ? (
                     <div className="flex items-center space-x-2">
-                      <div className="flex-1 bg-slate-700 rounded-full h-2 max-w-16">
+                      <div className="flex-1 bg-slate-100 rounded-full h-2 max-w-20">
                         <div
                           className={`h-2 rounded-full transition-all duration-300 ${
-                            submission.confidence >= 90 ? 'bg-[var(--color-verified-400)]' :
-                            submission.confidence >= 70 ? 'bg-[var(--color-processing-400)]' : 'bg-[var(--color-suspicious-400)]'
+                            submission.confidence >= 90 ? 'bg-[var(--color-verified-500)]' :
+                            submission.confidence >= 70 ? 'bg-[var(--color-processing-500)]' : 'bg-[var(--color-suspicious-500)]'
                           }`}
                           style={{ width: `${submission.confidence}%` }}
-                        ></div>
+                        />
                       </div>
-                      <span className={`text-sm font-medium ${getConfidenceColor(submission.confidence)}`}>
+                      <span className={`text-sm font-semibold ${getConfidenceColor(submission.confidence)}`}>
                         {submission.confidence}%
                       </span>
                     </div>
                   ) : (
-                    <span className="text-sm text-slate-500">-</span>
+                    <span className="text-sm text-[var(--ts-text-muted)]">-</span>
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-400">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[var(--ts-text-muted)]">
                   {new Date(submission.date).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
@@ -235,7 +305,7 @@ const HistoryTable = () => {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => handleViewSubmission(submission.id)}
-                      className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium text-blue-400 bg-blue-900/30 hover:bg-blue-900/50 border border-blue-700/30 transition-all duration-150 hover:shadow-lg hover:shadow-blue-500/20"
+                      className="inline-flex items-center px-3 py-2 rounded-lg text-sm font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 transition-all duration-150"
                     >
                       <EyeIcon className="w-4 h-4 mr-1" />
                       View
@@ -243,22 +313,10 @@ const HistoryTable = () => {
                     <button
                       onClick={() => handleDeleteClick(submission.id)}
                       disabled={deletingId === submission.id}
-                      className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium text-red-400 bg-red-900/30 hover:bg-red-900/50 border border-red-700/30 transition-all duration-150 hover:shadow-lg hover:shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="inline-flex items-center px-3 py-2 rounded-lg text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 transition-all duration-150 disabled:opacity-60"
                     >
-                      {deletingId === submission.id ? (
-                        <>
-                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Deleting...
-                        </>
-                      ) : (
-                        <>
-                          <TrashIcon className="w-4 h-4 mr-1" />
-                          Delete
-                        </>
-                      )}
+                      <TrashIcon className="w-4 h-4 mr-1" />
+                      {deletingId === submission.id ? 'Deleting...' : 'Delete'}
                     </button>
                   </div>
                 </td>

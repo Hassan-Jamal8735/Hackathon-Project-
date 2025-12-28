@@ -8,8 +8,8 @@ const Loader = ({ size = "default" }) => {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-slate-900">
-      <div className={`${sizeClasses[size]} animate-spin rounded-full border-4 border-slate-600 border-t-[var(--color-trust-500)]`}></div>
+    <div className="flex h-screen w-full items-center justify-center bg-white">
+      <div className={`${sizeClasses[size]} animate-spin rounded-full border-4 border-slate-200 border-t-[var(--color-trust-500)]`}></div>
     </div>
   );
 };

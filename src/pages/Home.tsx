@@ -171,19 +171,19 @@ const Home: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 shadow-2xl">
+      <div className="py-20 bg-gradient-to-r from-blue-50 via-blue-100 to-purple-50 border-t border-blue-100">
         <div className="container-fluid text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             Ready to Verify Content with Confidence?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-700 mb-8 max-w-2xl mx-auto">
             Join thousands of professionals who trust TruthShield for their content analysis needs.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {currentUser ? (
               <Link to="/upload">
-                <Button size="lg" className="px-8 py-4 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm">
+                <Button size="lg" className="px-8 py-4 text-lg">
                   Start Analyzing
                   <ArrowPathIcon className="ml-2 h-5 w-5" />
                 </Button>
@@ -191,13 +191,13 @@ const Home: React.FC = () => {
             ) : (
               <>
                 <Link to="/register">
-                  <Button size="lg" className="px-8 py-4 text-lg bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm">
+                  <Button size="lg" className="px-8 py-4 text-lg">
                     Get Started Free
                     <SparklesIcon className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
                 <Link to="/login">
-                  <Button size="lg" className="px-8 py-4 text-lg bg-slate-900/80 border-slate-700 text-slate-200 hover:bg-slate-800 backdrop-blur-sm">
+                  <Button size="lg" variant="outline" className="px-8 py-4 text-lg">
                     Sign In
                   </Button>
                 </Link>

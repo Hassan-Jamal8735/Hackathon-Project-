@@ -19,9 +19,9 @@ const Input = forwardRef(({
         type={type}
         className={`
           form-input
-          bg-slate-800/50 backdrop-blur-sm
-          text-white placeholder:text-slate-400
-          hover:border-slate-500
+          bg-white
+          text-slate-900 placeholder:text-slate-500
+          hover:border-slate-400
           ${error ? "border-red-500 focus:ring-red-500 focus:border-red-500" : ""}
           ${className}
         `}

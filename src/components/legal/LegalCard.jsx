@@ -16,13 +16,21 @@ const LegalCard = ({ title, description, type }) => {
   const [selectedJurisdiction, setSelectedJurisdiction] = useState('');
   const [showJurisdictionSelector, setShowJurisdictionSelector] = useState(false);
 
-  const getIcon = () => {
-    switch(type) {
-      case 'clause': return <DocumentTextIcon className="h-8 w-8 text-blue-600" />;
-      case 'complaint': return <ShieldCheckIcon className="h-8 w-8 text-green-600" />;
-      case 'guidance': return <UserGroupIcon className="h-8 w-8 text-purple-600" />;
-      default: return <BoltIcon className="h-8 w-8 text-orange-600" />;
-    }
+  const typeStyles = {
+    clause: { bg: 'bg-blue-50 border-blue-200 text-blue-600', icon: DocumentTextIcon },
+    complaint: { bg: 'bg-emerald-50 border-emerald-200 text-emerald-600', icon: ShieldCheckIcon },
+    guidance: { bg: 'bg-purple-50 border-purple-200 text-purple-600', icon: UserGroupIcon },
+    default: { bg: 'bg-orange-50 border-orange-200 text-orange-600', icon: BoltIcon }
+  };
+
+  const renderIcon = () => {
+    const style = typeStyles[type] || typeStyles.default;
+    const Icon = style.icon;
+    return (
+      <div className={`h-12 w-12 rounded-xl flex items-center justify-center border ${style.bg}`}>
+        <Icon className={`h-6 w-6 ${style.text}`} />
+      </div>
+    );
   };
 
   const getPlaceholder = () => {
@@ -148,21 +156,19 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
   };
 
   return (
-    <div className="card bg-slate-800/50 p-6 hover:shadow-lg transition-all duration-300">
+    <div className="card bg-white border border-[var(--ts-border)] rounded-2xl p-6 shadow-md hover:shadow-lg transition-all duration-300">
       <div className="flex items-start space-x-4">
         <div className="flex-shrink-0">
-          <div className="p-3 bg-[var(--color-trust-900)] rounded-lg border border-[var(--color-trust-700)]">
-            {getIcon()}
-          </div>
+          {renderIcon()}
         </div>
         
         <div className="flex-1">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h3 className="text-xl font-bold text-white">{title}</h3>
-              <p className="text-slate-400 mt-1">{description}</p>
+              <h3 className="text-xl font-bold text-[var(--ts-text-primary)]">{title}</h3>
+              <p className="text-[var(--ts-text-secondary)] mt-1">{description}</p>
             </div>
-            <span className="badge-verified">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
               {type.toUpperCase()}
             </span>
           </div>
@@ -171,14 +177,14 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
           <div className="mb-4">
             <button
               onClick={() => setShowJurisdictionSelector(!showJurisdictionSelector)}
-              className="flex items-center text-sm text-blue-400 hover:text-blue-300 font-medium mb-2"
+              className="flex items-center text-sm text-blue-600 hover:text-blue-700 font-medium mb-2"
             >
               <span className="mr-2">{showJurisdictionSelector ? '▼' : '▶'}</span>
               {selectedJurisdiction ? `Selected: ${selectedJurisdiction}` : 'Specify Jurisdiction (Optional)'}
             </button>
 
             {showJurisdictionSelector && (
-              <div className="bg-slate-800/30 border border-[var(--color-trust-700)] rounded-lg p-4 animate-fadeIn">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 animate-fadeIn">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-3">
                   {[
                     'Universal', 'Common Law', 'Civil Law', 'Religious Law',
@@ -192,8 +198,8 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
                       }}
                       className={`px-3 py-2 text-sm rounded-lg border transition-colors ${
                         selectedJurisdiction === system
-                          ? 'bg-[var(--color-trust-900)] border-[var(--color-trust-700)] text-[var(--color-trust-200)]'
-                          : 'bg-slate-700/30 border-slate-600 text-slate-300 hover:bg-slate-600/30'
+                          ? 'bg-blue-100 border-blue-300 text-blue-700'
+                          : 'bg-white border-blue-200 text-[var(--ts-text-secondary)] hover:bg-blue-50'
                       }`}
                     >
                       {system}
@@ -210,12 +216,12 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
                   />
                   <button
                     onClick={() => setSelectedJurisdiction('')}
-                    className="px-3 py-2 text-sm text-slate-400 hover:text-slate-300"
+                    className="px-3 py-2 text-sm text-[var(--ts-text-muted)] hover:text-[var(--ts-text-primary)]"
                   >
                     Clear
                   </button>
                 </div>
-                <p className="text-xs text-slate-400 mt-2">
+                <p className="text-xs text-[var(--ts-text-muted)] mt-2">
                   Specify your legal framework for more accurate guidance. AI will use universal principles if not specified.
                 </p>
               </div>
@@ -224,7 +230,7 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
 
           {/* Prompt Input */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-white mb-2">
+            <label className="block text-sm font-medium text-[var(--ts-text-primary)] mb-2">
               What do you need help with?
             </label>
             <textarea
@@ -234,7 +240,7 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
               className="form-input w-full resize-none"
               rows="3"
             />
-            <p className="text-xs text-slate-400 mt-2">
+            <p className="text-xs text-[var(--ts-text-muted)] mt-2">
               Be specific for better results. Mention context like "in India" or your location.
             </p>
           </div>
@@ -259,7 +265,7 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
             
             <button
               onClick={() => setPrompt('')}
-              className="px-4 py-2 text-slate-400 hover:text-slate-300"
+              className="px-4 py-2 text-[var(--ts-text-muted)] hover:text-[var(--ts-text-primary)]"
             >
               Clear
             </button>
@@ -269,20 +275,20 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
           {generatedContent && (
             <div className="mt-6 animate-fadeIn">
               <div className="flex items-center justify-between mb-4">
-                <h4 className="text-lg font-semibold text-green-300">
+                <h4 className="text-lg font-semibold text-emerald-700">
                   ✅ Generated Legal Content
                 </h4>
                 <div className="flex space-x-2">
                   <button
                     onClick={handleCopy}
-                    className="flex items-center px-3 py-1 text-sm bg-[var(--color-trust-900)] text-[var(--color-trust-200)] rounded-lg hover:bg-[var(--color-trust-800)] border border-[var(--color-trust-700)]"
+                    className="flex items-center px-3 py-1 text-sm bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 border border-blue-200"
                   >
                     <ClipboardDocumentIcon className="h-4 w-4 mr-1" />
                     Copy
                   </button>
                   <button
                     onClick={handleDownload}
-                    className="flex items-center px-3 py-1 text-sm bg-[var(--color-verified-900)] text-[var(--color-verified-300)] rounded-lg hover:bg-[var(--color-verified-800)] border border-[var(--color-verified-700)]"
+                    className="flex items-center px-3 py-1 text-sm bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 border border-emerald-200"
                   >
                     <DocumentArrowDownIcon className="h-4 w-4 mr-1" />
                     Download
@@ -292,32 +298,32 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
 
               {/* Jurisdiction Information Display */}
               {jurisdictionInfo && (
-                <div className="mb-4 p-4 bg-gradient-to-r from-slate-800/30 to-slate-700/30 border border-slate-600 rounded-lg">
+                <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-lg">
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 gradient-trust rounded-full flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">⚖️</span>
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span className="text-blue-700 text-sm font-bold">⚖️</span>
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h5 className="font-semibold text-blue-300 mb-2">
+                      <h5 className="font-semibold text-blue-700 mb-2">
                         🌍 Detected Jurisdiction: {jurisdictionInfo.name}
                       </h5>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                         <div>
-                          <span className="font-medium text-white">Legal System:</span>
-                          <span className="ml-2 text-blue-400">{jurisdictionInfo.system.system}</span>
+                          <span className="font-medium text-[var(--ts-text-primary)]">Legal System:</span>
+                          <span className="ml-2 text-blue-700">{jurisdictionInfo.system.system}</span>
                         </div>
                         <div>
-                          <span className="font-medium text-white">Confidence:</span>
-                          <span className="ml-2 text-green-400">{(jurisdictionInfo.confidence * 100).toFixed(1)}%</span>
+                          <span className="font-medium text-[var(--ts-text-primary)]">Confidence:</span>
+                          <span className="ml-2 text-emerald-700">{(jurisdictionInfo.confidence * 100).toFixed(1)}%</span>
                         </div>
                         <div className="md:col-span-2">
-                          <span className="font-medium text-white">Key Laws:</span>
-                          <span className="ml-2 text-slate-400">{jurisdictionInfo.system.keyLaws.slice(0, 3).join(', ')}</span>
+                          <span className="font-medium text-[var(--ts-text-primary)]">Key Laws:</span>
+                          <span className="ml-2 text-[var(--ts-text-secondary)]">{jurisdictionInfo.system.keyLaws.slice(0, 3).join(', ')}</span>
                         </div>
                       </div>
-                      <div className="mt-2 text-xs text-slate-400">
+                      <div className="mt-2 text-xs text-[var(--ts-text-muted)]">
                         {jurisdictionInfo.reasoning}
                       </div>
                     </div>
@@ -325,13 +331,13 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
                 </div>
               )}
               
-              <div className="bg-slate-800/30 border border-[var(--color-verified-700)] rounded-lg p-4 max-h-96 overflow-y-auto">
-                <pre className="text-slate-300 whitespace-pre-wrap font-sans text-sm leading-relaxed">
+              <div className="bg-slate-50 border border-[var(--ts-border)] rounded-lg p-4 max-h-96 overflow-y-auto">
+                <pre className="text-[var(--ts-text-primary)] whitespace-pre-wrap font-sans text-sm leading-relaxed">
                   {generatedContent}
                 </pre>
               </div>
               
-              <div className="mt-4 text-sm text-[var(--color-processing-200)] bg-[var(--color-processing-900)] p-3 rounded-lg border border-[var(--color-processing-700)]">
+              <div className="mt-4 text-sm text-amber-800 bg-amber-50 p-3 rounded-lg border border-amber-200">
                 <strong>⚠️ Disclaimer:</strong> This is AI-generated legal information. Consult with a qualified
                 lawyer for legal advice specific to your situation. Indian laws referenced where applicable.
               </div>
@@ -340,40 +346,40 @@ This system uses 100% real AI generation - no templates or fallbacks.`;
           
           {/* History Section */}
           {currentUser && (
-            <div className="mt-6 border-t pt-6">
+            <div className="mt-6 border-t border-[var(--ts-border)] pt-6">
               <button
                 onClick={() => {
                   setShowHistory(!showHistory);
                   if (!showHistory) loadHistory();
                 }}
-                className="flex items-center text-sm text-slate-400 hover:text-slate-300"
+                className="flex items-center text-sm text-[var(--ts-text-muted)] hover:text-[var(--ts-text-primary)]"
               >
                 <span className="mr-2">
                   {showHistory ? '▼' : '▶'}
                 </span>
                 {showHistory ? 'Hide History' : 'Show History'} 
-                <span className="ml-2 bg-slate-700 text-slate-300 px-2 py-1 rounded-full text-xs border border-slate-600">
+                <span className="ml-2 bg-slate-100 text-[var(--ts-text-primary)] px-2 py-1 rounded-full text-xs border border-[var(--ts-border)]">
                   {history.length}
                 </span>
               </button>
               
               {showHistory && history.length > 0 && (
                 <div className="mt-4 space-y-3 animate-fadeIn">
-                  <h5 className="font-medium text-white">Your Recent Generations:</h5>
+                  <h5 className="font-medium text-[var(--ts-text-primary)]">Your Recent Generations:</h5>
                   {history.slice(0, 5).map((item) => (
-                    <div key={item.id} className="p-3 bg-slate-800/30 border border-slate-600 rounded-lg hover:bg-slate-700/30 cursor-pointer">
+                    <div key={item.id} className="p-3 bg-slate-50 border border-[var(--ts-border)] rounded-lg hover:bg-slate-100 cursor-pointer">
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
-                          <div className="text-xs text-slate-400 mb-1">
+                          <div className="text-xs text-[var(--ts-text-muted)] mb-1">
                             {new Date(item.timestamp).toLocaleString()}
                           </div>
-                          <div className="font-medium text-white text-sm line-clamp-2">
+                          <div className="font-medium text-[var(--ts-text-primary)] text-sm line-clamp-2">
                             {item.prompt}
                           </div>
                         </div>
                         <button
                           onClick={() => loadFromHistory(item.content)}
-                          className="ml-2 text-blue-400 hover:text-blue-300 text-sm"
+                          className="ml-2 text-blue-600 hover:text-blue-700 text-sm"
                         >
                           Load
                         </button>

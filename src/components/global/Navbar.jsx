@@ -31,15 +31,15 @@ const Navbar = () => {
   ] : [];
 
   return (
-    <nav className="bg-slate-900/95 backdrop-blur-sm shadow-lg border-b border-slate-800/50">
+    <nav className="sticky top-0 z-40 bg-white/85 supports-[backdrop-filter]:bg-white/60 backdrop-blur-lg shadow-md border-b border-slate-200/80 text-[var(--ts-text-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo and mobile menu button */}
           <div className="flex items-center">
             <div className="flex items-center">
-              <Link to="/" className="text-xl font-bold text-blue-400 flex items-center hover:text-blue-300 transition-colors duration-200">
-                <ShieldCheckIcon className="h-6 w-6 mr-2 text-blue-400" />
-                TruthShield
+              <Link to="/" className="flex items-center space-x-2 text-xl font-bold text-blue-700 hover:text-blue-800 transition-colors duration-200">
+                <img src="/icons/logo.png" alt="TruthShield logo" className="h-8 w-auto" />
+                <span>TruthShield</span>
               </Link>
             </div>
             
@@ -51,14 +51,14 @@ const Navbar = () => {
                     key={item.name}
                     to={item.href}
                     className={({ isActive }) =>
-                      `inline-flex items-center px-3 py-2 text-sm font-medium rounded-md mx-1 transition-all duration-200 ${
+                      `inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg mx-1 transition-all duration-200 ${
                         isActive
-                          ? 'bg-blue-900/50 text-blue-300 border-b-2 border-blue-400 shadow-lg'
-                          : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
+                          ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-600 shadow-sm'
+                          : 'text-[var(--ts-text-secondary)] hover:bg-slate-50 hover:text-[var(--ts-text-primary)] hover:-translate-y-0.5'
                       }`
                     }
                   >
-                    <item.icon className="mr-2 h-5 w-5" aria-hidden="true" />
+                    <item.icon className="mr-2 h-5 w-5 text-current" aria-hidden="true" />
                     {item.name}
                   </NavLink>
                 ))}
@@ -73,16 +73,16 @@ const Navbar = () => {
                 {/* User info and dropdown */}
                 <div className="hidden md:flex items-center space-x-4">
                   <div className="flex flex-col text-right">
-                    <span className="text-sm font-medium text-slate-200">
+                    <span className="text-sm font-medium text-slate-800">
                       {currentUser.displayName || currentUser.email}
                     </span>
-                    <span className="text-xs text-slate-400 capitalize">
+                    <span className="text-xs text-slate-500 capitalize">
                       {userData?.role || 'User'}
                     </span>
                   </div>
 
                   <div className="relative">
-                    <div className="h-8 w-8 rounded-full bg-blue-900/50 border border-blue-700/50 flex items-center justify-center text-blue-300 font-semibold">
+                  <div className="h-8 w-8 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 font-semibold shadow-sm">
                       {(currentUser.displayName || currentUser.email).charAt(0).toUpperCase()}
                     </div>
                   </div>
@@ -91,7 +91,7 @@ const Navbar = () => {
                     variant="outline"
                     onClick={handleLogout}
                     size="sm"
-                    className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+                    className="border-[var(--ts-border)] text-[var(--ts-text-primary)] hover:bg-slate-100 hover:text-[var(--ts-text-primary)]"
                   >
                     Logout
                   </Button>
@@ -101,9 +101,10 @@ const Navbar = () => {
                 <div className="md:hidden">
                   <button
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-300 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200"
+                    className="inline-flex items-center justify-center p-2 rounded-lg border border-slate-200/60 bg-white/70 text-slate-500 hover:text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors duration-200"
+                    aria-expanded={mobileMenuOpen}
+                    aria-label="Toggle main menu"
                   >
-                    <span className="sr-only">Open main menu</span>
                     {mobileMenuOpen ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                     ) : (
@@ -115,7 +116,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="outline" size="sm" className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white">Login</Button>
+                  <Button variant="outline" size="sm" className="border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-slate-900">Login</Button>
                 </Link>
                 <Link to="/register">
                   <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">Sign Up</Button>
@@ -127,7 +128,7 @@ const Navbar = () => {
 
         {/* Mobile menu, show/hide based on menu state */}
         {mobileMenuOpen && currentUser && (
-          <div className="md:hidden border-t border-slate-700/50 bg-slate-900/95 backdrop-blur-sm">
+          <div className="md:hidden border-t border-[var(--ts-border)] bg-[var(--ts-card)]/95 backdrop-blur-lg shadow-lg ring-1 ring-slate-200/70 rounded-b-xl">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
                 <NavLink
@@ -137,27 +138,27 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `flex items-center px-3 py-2 text-base font-medium rounded-md transition-all duration-200 ${
                       isActive
-                        ? 'bg-blue-900/50 text-blue-300 border-l-4 border-blue-400'
-                        : 'text-slate-300 hover:bg-slate-800/50 hover:text-white'
+                        ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-600'
+                        : 'text-[var(--ts-text-secondary)] hover:bg-slate-50 hover:text-[var(--ts-text-primary)] hover:-translate-y-0.5'
                     }`
                   }
                 >
-                  <item.icon className="mr-3 h-6 w-6" aria-hidden="true" />
+                  <item.icon className="mr-3 h-6 w-6 text-current" aria-hidden="true" />
                   {item.name}
                 </NavLink>
               ))}
 
               {/* User info in mobile menu */}
-              <div className="px-3 py-2 border-t border-slate-700/50">
+              <div className="px-3 py-2 border-t border-[var(--ts-border)]">
                 <div className="flex items-center">
-                  <div className="h-10 w-10 rounded-full bg-blue-900/50 border border-blue-700/50 flex items-center justify-center text-blue-300 font-semibold">
+                  <div className="h-10 w-10 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-700 font-semibold shadow-sm">
                     {(currentUser.displayName || currentUser.email).charAt(0).toUpperCase()}
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm font-medium text-slate-200">
+                    <p className="text-sm font-medium text-slate-800">
                       {currentUser.displayName || currentUser.email}
                     </p>
-                    <p className="text-xs text-slate-400 capitalize">
+                    <p className="text-xs text-slate-500 capitalize">
                       {userData?.role || 'User'}
                     </p>
                   </div>
@@ -168,7 +169,7 @@ const Navbar = () => {
                     setMobileMenuOpen(false);
                   }}
                   variant="outline"
-                  className="w-full mt-3 p-2 border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+                  className="w-full mt-3 p-2 border-[var(--ts-border)] text-[var(--ts-text-primary)] hover:bg-slate-100 hover:text-[var(--ts-text-primary)]"
                 >
                   Logout
                 </Button>

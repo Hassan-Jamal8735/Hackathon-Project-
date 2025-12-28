@@ -30,10 +30,10 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark">
+      <div className="light-theme min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex flex-col">
         <Navbar />
-        <div className="flex">
-          <main className="flex-1 p-8">
+        <main className="page-shell py-8">
+          <div className="container-shell section-stack">
             <Routes>
               <Route path="/verify-firebase" element={<VerifyFirebase />} />
 
@@ -82,8 +82,8 @@ function App() {
               />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
     </Router>
   );
